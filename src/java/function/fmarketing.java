@@ -13,7 +13,7 @@ import java.util.List;
 
 public class fmarketing {
     private int id_marketing;
-    private String agama, nama, jk, email, alamat;
+    private String agama, nama_mar, jk, email, alamat;
     List<forder> daftar_order=new ArrayList<forder>();
     
     public int getId_marketing() {
@@ -22,11 +22,11 @@ public class fmarketing {
     public void setId_marketing(int id_marketing) {
         this.id_marketing = id_marketing;
     }
-    public String getNama() {
-        return nama;
+    public String getNama_mar() {
+        return nama_mar;
     }
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setNama_mar(String nama_mar) {
+        this.nama_mar = nama_mar;
     }
     public String getJk() {
         return jk;

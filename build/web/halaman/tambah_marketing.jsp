@@ -24,7 +24,7 @@
               <form method="post" action="halaman/proses_inputMarketing.jsp">
                     <div class="form-group">
                       <label for="">Nama Marketing</label>
-                      <input type="text" name="nama" class="form-control">
+                      <input type="text" name="nama_mar" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="">Jenis Kelamin</label><br>

@@ -52,7 +52,7 @@
                         %>
                         <c:forEach items="${list}" var="u">
                         <tr>
-                             <td>${u.getNama()}</td>
+                             <td>${u.getNama_mar()}</td>
                              <td>${u.getJk()}</td>
                              <td>${u.getAgama()}</td>
                              <td>${u.getEmail()}</td>

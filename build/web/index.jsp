@@ -7,6 +7,14 @@
 <%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
+
+<%
+    String username = (String)session.getAttribute("username");
+    // redirect user to login page if not logged in
+    if(username == null){
+        response.sendRedirect("login.jsp");
+    }
+%> 
 <%@ include file="header.jsp" %>
          <%
             if (request.getParameter("folder")!=null) {

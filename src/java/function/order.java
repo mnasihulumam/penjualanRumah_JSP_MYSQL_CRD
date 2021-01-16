@@ -12,39 +12,97 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import function.forder;
-import function.fmarketing;
-import function.fpembeli;
-import function.frumah;
 
 public class order {
-    public static List<forder> getAllRecords() throws SQLException{
-        List<forder> daftar_order=new ArrayList<forder>();
+    public static List<forder> getAllRecords(){
+        List<forder> list=new ArrayList<forder>();
+        try{
             Connection con=koneksi.getKoneksi();
-            PreparedStatement ps=con.prepareStatement("select t_pembelian.id_pembelian, f_pembeli.id_pembeli, f_pembeli.tipe ,f_rumah.no_rumah, t_pembelian.tanggal, t_pembelian.bayar, fmarketing.id_marketing, fmarketing.nama FROM t_pembelian JOIN t_marketing ON (t_pembelian.id_pembelian=t_marketing.id_marketing) "
-                    + "JOIN t_pembeli ON (t_pembelian.id_pembeli=t_pembeli.id_pembeli) "
-                    + "JOIN t_rumah ON (t_rumah.no_rumah=t_rumah.no_rumah) ");
+            PreparedStatement ps=con.prepareStatement("SELECT t_pembelian.id_pembelian, "
+                    + "t_pembeli.id_pembeli, t_rumah.no_rumah, t_pembelian.tanggal, "
+                    + "t_pembelian.bayar, t_marketing.id_marketing, t_pembeli.nama, t_marketing.nama_mar, t_rumah.tipe FROM t_pembelian "
+                    + "INNER JOIN t_pembeli ON t_pembelian.id_pembeli=t_pembeli.id_pembeli "
+                    + "INNER JOIN t_rumah ON t_pembelian.no_rumah=t_rumah.no_rumah "
+                    + "INNER JOIN t_marketing ON t_pembelian.id_marketing=t_marketing.id_marketing");
             ResultSet rs=ps.executeQuery();
             while(rs.next()){
-                forder order=new forder();
-                fpembeli pembeli =new fpembeli();
-                frumah rumah=new frumah();
-                fmarketing marketing=new fmarketing();
-                
-                order.setId_pembelian(rs.getInt("id_pembelian"));
-                pembeli.setId_pembeli(rs.getInt("id_pembeli"));
-                pembeli.setNama(rs.getString("nama"));
-                rumah.setNo_rumah(rs.getInt("no_rumah"));
-                rumah.setTipe(rs.getString("tipe"));
-                order.setBayar(rs.getString("bayar"));
-                marketing.setId_marketing(rs.getInt("id_marketing"));
-                marketing.setNama(rs.getString("nama"));
-                
-                order.setMarketing(marketing);
-                order.setPembeli(pembeli);               
-                order.setRumah(rumah);
-                
-               daftar_order.add(order);
+                forder u=new forder();
+                u.setId_pembelian(rs.getInt("id_pembelian"));
+                u.setId_pembeli(rs.getInt("id_pembeli"));
+                u.setNo_rumah(rs.getInt("no_rumah"));
+                u.setTanggal(rs.getString("tanggal"));
+                u.setBayar(rs.getString("bayar"));                
+                u.setId_marketing(rs.getInt("id_marketing"));
+                u.setNama_pembeli(rs.getString("nama"));
+                u.setNama_marketing(rs.getString("nama_mar"));
+                u.setTipe(rs.getString("tipe"));
+                list.add(u);
             }
-            return daftar_order;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+         return list;
     }
+    public static int save(forder gt) {
+        int status = 0;
+        try {
+            Connection con = koneksi.getKoneksi();
+            PreparedStatement ps = con.prepareStatement("INSERT INTO t_pembelian (id_pembeli,no_rumah,tanggal, bayar,id_marketing)values(?,?,?,?,?)");
+            ps.setInt(1, gt.getId_pembeli());
+            ps.setInt(2, gt.getNo_rumah());
+            ps.setString(3, gt.getTanggal());
+            ps.setString(4, gt.getBayar());
+            ps.setInt(5, gt.getId_marketing());
+            
+            status = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+    public static forder getRecordById(int id) {
+        forder j = null;
+        try {
+            Connection con = koneksi.getKoneksi();
+            PreparedStatement ps = con.prepareStatement("SELECT t_pembelian.id_pembelian, "
+                    + "t_pembeli.id_pembeli, t_rumah.no_rumah, t_pembelian.tanggal, "
+                    + "t_pembelian.bayar, t_marketing.id_marketing, t_pembeli.nama, t_marketing.nama_mar, t_rumah.tipe FROM t_pembelian "
+                    + "INNER JOIN t_pembeli ON t_pembelian.id_pembeli=t_pembeli.id_pembeli "
+                    + "INNER JOIN t_rumah ON t_pembelian.no_rumah=t_rumah.no_rumah "
+                    + "INNER JOIN t_marketing ON t_pembelian.id_marketing=t_marketing.id_marketing "
+                    + "where id_pembelian=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                j = new forder();
+                j.setId_pembelian(rs.getInt("id_pembelian"));
+                j.setId_pembeli(rs.getInt("id_pembeli"));
+                j.setNo_rumah(rs.getInt("no_rumah"));
+                j.setTanggal(rs.getString("tanggal"));
+                j.setBayar(rs.getString("bayar"));                
+                j.setId_marketing(rs.getInt("id_marketing"));
+                j.setNama_pembeli(rs.getString("nama"));
+                j.setNama_marketing(rs.getString("nama_mar"));
+                j.setTipe(rs.getString("tipe"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return j;
+    }
+    public static int delete(forder u) {
+        int status = 0;
+        try {
+            Connection con = koneksi.getKoneksi();
+            PreparedStatement ps = con.prepareStatement("delete from t_pembelian "
+                    + "where id_pembelian=?");
+            ps.setInt(1, u.getId_pembelian());
+            status = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    } 
+    
 }

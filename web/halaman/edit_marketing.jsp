@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
               <label for="">Nama Lengkap</label>
-              <input type="text" name="nama" value="<%=u.getNama()%>" class="form-control">
+              <input type="text" name="nama_mar" value="<%=u.getNama_mar()%>" class="form-control">
             </div>
              <div class="form-group">
                <label for="">Jenis Kelamin</label><br>

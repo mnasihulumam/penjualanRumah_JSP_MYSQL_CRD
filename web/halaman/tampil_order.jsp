@@ -4,7 +4,6 @@
     Author     : HP
 --%>
 
-<%@page import="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%> 
 
@@ -23,21 +22,26 @@
               <h1>Data Order</h1>
             </div>
             <hr class="bg-secondary"></hr>
-              <a href="index.jsp?folder=halaman&file=tambah_pembeli.jsp" class="btn-warning pr-3 pl-3" style="border-radius: 5px;">Tambah Data</a>
-              <a href="halaman/tampil_pembeli.jsp?exportToExcel=YES" class="btn-success pr-3 pl-3" style="border-radius: 5px;">Export ke Excel</a>
+              <a href="index.jsp?folder=halaman&file=tambah_order.jsp" class="btn-warning pr-3 pl-3" style="border-radius: 5px;">Tambah Data</a>
+              <a href="halaman/tampil_order.jsp?exportToExcel=YES" class="btn-success pr-3 pl-3" style="border-radius: 5px;">Export ke Excel</a>
                   <table class="table">
                     <thead>
                       <tr class="btn-primary">
-                        <th>Nama Lengkap</th>
-                        
+                        <th>No Order</th>
+                        <th>Nama Pembeli</th>
+                        <th>Tipe Rumah</th>
+                        <th>Tanggal Pembayaran</th>
+                        <th>Metode Pembayaran</th>
+                        <th>Nama Marketing</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
                       <%@page import="function.*, java.util.*"%>
                         <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
                         <%
-                            List<forder> daftar_order=  order.getAllRecords();
-                            request.setAttribute("daftar_order", daftar_order);
+                            List<forder> list = order.getAllRecords();
+                            request.setAttribute("list", list);
                         %>
                         <%
                                         String exportToExcel = request.getParameter("exportToExcel");
@@ -47,10 +51,16 @@
                                         }
                                              
                         %>
-                        <c:forEach items="${daftar_order}">
+                        <c:forEach items="${list}" var="u">
                         <tr>
-                             <td>${order.getId_pembelian()}</td>
-                             
+                             <td>${u.getId_pembelian()}</td>
+                             <td>${u.getNama_pembeli()}</td>
+                             <td>${u.getTipe()}</td>
+                             <td>${u.getTanggal()}</td>
+                             <td>${u.getBayar()}</td>
+                             <td>${u.getNama_marketing()}</td>
+                             <td><a href="halaman/edit_order.jsp?id_pembelian=${u.getId_pembelian()}" class="badge badge-success">Edit</a> |
+                                 <a href="halaman/hapus_order.jsp?id_pembelian=${u.getId_pembelian()}" class="badge badge-danger" onclick="return confirm('Anda yakin mau menghapus data ini?')">Delete</a></td>
                          </tr>
                         </c:forEach>
               </tbody>

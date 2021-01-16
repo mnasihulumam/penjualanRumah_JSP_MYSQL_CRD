@@ -4,14 +4,16 @@
     Author     : HP
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@page import="function.order"%>
+<jsp:useBean id="u" class="function.forder"></jsp:useBean>
+<jsp:setProperty property="*" name="u"/>
+<%
+    int i=order.save(u);
+    if(i>0){
+       out.print("<script> alert('Input Data Berhasil'); window.location='../index.jsp?folder=halaman&file=tampil_order.jsp'</script>");
+    }
+    else{
+        out.print("<script> alert('Input Data Gagal ! Periksa Kembali!'); window.location='../index.jsp?folder=halaman&file=tambah_order.jsp'</script>");
+    }
+%>
+

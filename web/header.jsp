@@ -31,7 +31,7 @@
       </div>
       <div class="icon ml-4">
         <h5>
-        <a href="logout.jsp" style="color: black;" onclick="return confirm('Anda yakin mau Logout?')"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out" ></i></a>
+        <a href="halaman/logout.jsp" style="color: black;" onclick="return confirm('Anda yakin mau Logout?')"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out" ></i></a>
         </h5>
       </div>
     </div>

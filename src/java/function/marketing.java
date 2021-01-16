@@ -22,7 +22,7 @@ public class marketing {
             while(rs.next()){
                 fmarketing u=new fmarketing();
                 u.setId_marketing(rs.getInt("id_marketing"));
-                u.setNama(rs.getString("nama"));
+                u.setNama_mar(rs.getString("nama_mar"));
                 u.setJk(rs.getString("jk"));
                 u.setAgama(rs.getString("agama"));
                 u.setEmail(rs.getString("email"));                
@@ -36,8 +36,8 @@ public class marketing {
         int status = 0;
         try {
             Connection con = koneksi.getKoneksi();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO t_marketing(nama,jk,agama, email, alamat)values(?,?,?,?,?)");
-            ps.setString(1, gt.getNama());
+            PreparedStatement ps = con.prepareStatement("INSERT INTO t_marketing(nama_mar,jk,agama, email, alamat)values(?,?,?,?,?)");
+            ps.setString(1, gt.getNama_mar());
             ps.setString(2, gt.getJk());
             ps.setString(3, gt.getAgama());
             ps.setString(4, gt.getEmail());;
@@ -60,7 +60,7 @@ public class marketing {
             while (rs.next()) {
                 u = new fmarketing();
                 u.setId_marketing(rs.getInt("id_marketing"));
-                u.setNama(rs.getString("nama"));
+                u.setNama_mar(rs.getString("nama_mar"));
                 u.setJk(rs.getString("jk"));
                 u.setAgama(rs.getString("agama")); 
                 u.setEmail(rs.getString("email"));
@@ -77,8 +77,8 @@ public class marketing {
         int status = 0;
         try {
             Connection con = koneksi.getKoneksi();
-            PreparedStatement ps = con.prepareStatement("update t_marketing set nama = ?,jk =? , agama=? ,email= ?, alamat =? where id_marketing = ?");
-            ps.setString(1, u.getNama());
+            PreparedStatement ps = con.prepareStatement("update t_marketing set nama_mar = ?,jk =? , agama=? ,email= ?, alamat =? where id_marketing = ?");
+            ps.setString(1, u.getNama_mar());
             ps.setString(2, u.getJk());
             ps.setString(3, u.getAgama());
             ps.setString(4, u.getEmail());
